@@ -18,7 +18,8 @@ const blacklist = ['nemesio','rimavera','benture','tiagosare','teodera',
 'makhaon','mitrain','atividade','tihania','benedito','hermelinda','lonewolfahat','ignacia',
 'melhemi42','isandro','garbine','piridion','analeigh','onofrete','quidea','kasif','aciencia','kalmira','herfecta',
 'eyeserhe','epione','jaimica','carminda','jaione','isidoro','gualterio','inocencio','henriqua','glivana','aralyno','felisaleo',
-'anbessa','eleanora','fundition.help']
+'anbessa','eleanora','fundition.help','tecire','jerseymikes','fiveguys','redlobster','chick-fil-a','bonefish','chilis',
+'olive-garden','dealmoon','nozuonodie','roy-rogers','mitbbs','wenxuecity','huaren','teamcn']
 
 function isBlacklisted(string) {
     if(blacklist.includes(string))
