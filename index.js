@@ -271,11 +271,11 @@ stream.on("data", function (block) {
                 var op = object[i].operations[0][1]
                 var block = object[i].block_num
                 if (op.memo.includes('Fundition-') || op.memo.includes('fundition-') || op.memo.includes('Project=Fundition-')) {
+                   console.log('this is a donation from' + op.from)
                     op.memo = op.memo.replace("/", "°")
                     if(op.memo)
                     {
                         var memo = op.memo.split(" ")
-                        var newperm = memo[0].split("-")
                         var name = memo[1].split('=')[1]
                         if (op.from === "blocktrades") {
                             WriteDonation(block, name, op, memo)
