@@ -19,7 +19,8 @@ const blacklist = ['nemesio','rimavera','benture','tiagosare','teodera',
 'melhemi42','isandro','garbine','piridion','analeigh','onofrete','quidea','kasif','aciencia','kalmira','herfecta',
 'eyeserhe','epione','jaimica','carminda','jaione','isidoro','gualterio','inocencio','henriqua','glivana','aralyno','felisaleo',
 'anbessa','eleanora','fundition.help','tecire','jerseymikes','fiveguys','redlobster','chick-fil-a','bonefish','chilis',
-'olive-garden','dealmoon','nozuonodie','roy-rogers','mitbbs','wenxuecity','huaren','teamcn']
+'olive-garden','dealmoon','nozuonodie','roy-rogers','mitbbs','wenxuecity','huaren','teamcn','lifetimevoting','teamcn-fund',
+'teamcn-weekly','teamcn-news']
 
 function isBlacklisted(string) {
     if(blacklist.includes(string))
