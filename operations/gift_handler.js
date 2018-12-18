@@ -90,6 +90,7 @@ const gift_handler = {
         //INSERT USER 
         var user = json.name
         var date = json.date
+        
         console.log("User : " + user + " will be verified");
         if(isBlacklisted(user))
         {
@@ -142,25 +143,6 @@ const gift_handler = {
                             connection.release();
                             return cb(null)
                         }
-                        else if (zz != dd - 1) {
-                            console.log("reseting days")
-
-                            chest = chest+5
-                            var reward =  getReward(1)
-                            var query = "UPDATE gift SET day=2 , date='" + today + "', chest='" + chest + "' WHERE username='" + user + "'"
-                            connection.query(query, function (err, result) {
-                                if (err) throw err;
-                                else {
-                                    steem.broadcast.transfer(process.env.STEEM_PASS, 'fundition.help', user, reward + ' STEEM', 'Your reward for claiming your daily chest on Fundition.io!', function (err, result) {
-                                        if (err)
-                                            console.log(err, result);
-                                    });
-                                    console.log("Days reset for user" + user)
-                                    connection.release();
-                                    return cb(null)
-                                }
-                            })
-                        }
                         else if (result[0].day > 6) {
                             if (zz === dd && mm === ff) {
                                 console.log('same day for ' + user)
@@ -186,6 +168,26 @@ const gift_handler = {
                                 })
                             }
                         }
+                        else if (zz != dd - 1) {
+                            console.log("reseting days")
+
+                            chest = chest+5
+                            var reward =  getReward(1)
+                            var query = "UPDATE gift SET day=2 , date='" + today + "', chest='" + chest + "' WHERE username='" + user + "'"
+                            connection.query(query, function (err, result) {
+                                if (err) throw err;
+                                else {
+                                    steem.broadcast.transfer(process.env.STEEM_PASS, 'fundition.help', user, reward + ' STEEM', 'Your reward for claiming your daily chest on Fundition.io!', function (err, result) {
+                                        if (err)
+                                            console.log(err, result);
+                                    });
+                                    console.log("Days reset for user" + user)
+                                    connection.release();
+                                    return cb(null)
+                                }
+                            })
+                        }
+
                         else {
                             var newday = parseFloat(result[0].day + 1)
                             console.log('updating days')
