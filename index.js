@@ -151,10 +151,11 @@ stream.on("data", function (block) {
             //     }
             // }
             if (object[i].operations[0][1].id) {
-                if (object[i].operations[0][0] === "custom_json" && object[i].operations[0][1].id === "gift-claim") {
+                if (object[i].operations[0][0] === "custom_json" && object[i].operations[0][1].id === "fundition") {
                     try {
                         var json = JSON.parse(object[i].operations[0][1].json)
                         console.log(json)
+                        if(json.type === "claim-gift")
                         gift.createNewGift(json, function (error) {
                             if (!error) {
                                 console.log('gift updated')
