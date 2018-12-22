@@ -94,7 +94,7 @@ const gift_handler = {
         console.log("User : " + user + " will be verified");
         if(isBlacklisted(user))
         {
-            steem.broadcast.transfer(process.env.STEEM_PASS, 'fundition.help', user, '0.001 STEEM', 'Bots are not authorized to claim a daily chest on Fundition.io! If you are a human you can be whitelisted by joining our discord here : https://discord.me/fundition', function (err, result) {
+            steem.broadcast.transfer(process.env.STEEM_PASS, 'fundition', user, '0.001 STEEM', 'Bots are not authorized to claim a daily chest on Fundition.io! If you are a human you can be whitelisted by joining our discord here : https://discord.me/fundition', function (err, result) {
                 if (err)
                     console.log(err, result);
             });
