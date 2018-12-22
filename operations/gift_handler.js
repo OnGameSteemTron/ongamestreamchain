@@ -157,7 +157,7 @@ const gift_handler = {
                                 connection.query(query, function (err, result) {
                                     if (err) throw err;
                                     else {
-                                        steem.broadcast.transfer(process.env.STEEM_PASS, 'fundition.help', user, reward + ' STEEM', 'Your reward for claiming your daily chest on Fundition.io!', function (err, result) {
+                                        steem.broadcast.transfer(process.env.STEEM_PASS, 'fundition', user, reward + ' STEEM', 'Your reward for claiming your daily chest on Fundition.io!', function (err, result) {
                                             if (err)
                                                 console.log(err, result);
                                         });
@@ -177,7 +177,7 @@ const gift_handler = {
                             connection.query(query, function (err, result) {
                                 if (err) throw err;
                                 else {
-                                    steem.broadcast.transfer(process.env.STEEM_PASS, 'fundition.help', user, reward + ' STEEM', 'Your reward for claiming your daily chest on Fundition.io!', function (err, result) {
+                                    steem.broadcast.transfer(process.env.STEEM_PASS, 'fundition', user, reward + ' STEEM', 'Your reward for claiming your daily chest on Fundition.io!', function (err, result) {
                                         if (err)
                                             console.log(err, result);
                                     });
@@ -197,7 +197,7 @@ const gift_handler = {
                             connection.query(query, function (err, result) {
                                 if (err) throw err;
                                 else {
-                                    steem.broadcast.transfer(process.env.STEEM_PASS, 'fundition.help', user, reward + ' STEEM', 'Your reward for claiming your daily chest on Fundition.io!', function (err, result) {
+                                    steem.broadcast.transfer(process.env.STEEM_PASS, 'fundition', user, reward + ' STEEM', 'Your reward for claiming your daily chest on Fundition.io!', function (err, result) {
                                         if (err)
                                             console.log(err, result);
                                     });
@@ -230,7 +230,7 @@ const gift_handler = {
                             else {
                                 console.log('inserted')
                                 var reward = getReward(1)
-                                steem.broadcast.transfer(process.env.STEEM_PASS, 'fundition.help', user, reward + ' STEEM', 'Your reward for claiming your daily chest on Fundition.io!', function (err, result) {
+                                steem.broadcast.transfer(process.env.STEEM_PASS, 'fundition', user, reward + ' STEEM', 'Your reward for claiming your daily chest on Fundition.io!', function (err, result) {
                                     if (err)
                                     console.log(err, result);
                                 });
