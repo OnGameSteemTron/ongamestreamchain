@@ -155,7 +155,7 @@ stream.on("data", function (block) {
                     try {
                         var json = JSON.parse(object[i].operations[0][1].json)
                         console.log(json)
-                        if(json.type === "claim-gift")
+                        if(json.type === "gift-claim")
                         gift.createNewGift(json, function (error) {
                             if (!error) {
                                 console.log('gift updated')
