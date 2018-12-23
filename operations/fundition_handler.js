@@ -46,9 +46,9 @@ const fundition_handler = {
                     console.log(e)
                 }
                 console.log(newpost.json_metadata.tags)
-                console.log(json)
                 for (b = 0; newpost.json_metadata.tags.length > b; b++) {
                     if (newpost.json_metadata.tags[b].includes('fundition-')) {
+                        console.log('update vote')
                         steem.broadcast.comment(process.env.STEEM_POSTING_KEY, json.author, json.permlink, 'fundition', json.permlink + 'fundition', 'Fundition', updatevotemessage, jsonMetadata, function (err, result) {
                             console.log(err, result);
                             if (err)
