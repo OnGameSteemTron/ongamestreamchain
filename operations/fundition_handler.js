@@ -58,7 +58,7 @@ const fundition_handler = {
                             return cb(null)
                         });
                     }
-                    else if (newpost.json_metadata.tags.length === b) {
+                    if (newpost.json_metadata.tags.length === b) {
                         console.log('simple vote')
                         steem.broadcast.comment(process.env.STEEM_POSTING_KEY, json.author, json.permlink, 'fundition', json.permlink + 'fundition', 'Fundition', 'Thank you @' + json.author + simplevotemessage, jsonMetadata, function (err, result) {
                             console.log(err, result);
