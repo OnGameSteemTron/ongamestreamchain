@@ -39,13 +39,13 @@ const fundition_handler = {
     upvoteComment: function (json, cb) {
         steem.api.getContent(json.author, json.permlink, function (error, result) {
             if (result) {
+                var newpost = {}
                 try {
-                    var newpost = {}
                     newpost.json_metadata = JSON.parse(result.json_metadata)
                 } catch (e) {
                     console.log(e)
                 }
-                console.log(result)
+                console.log(newpost.json_metadata.tags)
                 console.log(json)
                 for (b = 0; newpost.json_metadata.tags.length > b; b++) {
                     if (newpost.json_metadata.tags[b].includes('fundition-')) {
