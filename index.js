@@ -111,6 +111,7 @@ stream.on("data", function (block) {
         }
         for (i = 0; i < object.length; i++) {
             if (object[i].operations[0][0] === "vote" && object[i].operations[0][1].voter === "fundition") {
+                console.log('vote fundition')
                 try {
                     var json = object[i].operations[0][1]
                     fundition.upvoteComment(json,function(result){
