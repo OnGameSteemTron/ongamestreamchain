@@ -112,15 +112,11 @@ stream.on("data", function (block) {
         for (i = 0; i < object.length; i++) {
             if (object[i].operations[0][0] === "vote" && object[i].operations[0][1].voter === "fundition") {
                 console.log('vote fundition')
-                try {
-                    var json = object[i].operations[0][1]
-                    fundition.upvoteComment(json,function(result){
-                        if(result)
-                        console.log(result)
-                    })
-                } catch (error) {
-                    console.log(error)
-                }
+                var json = object[i].operations[0][1]
+                fundition.upvoteComment(json,function(result){
+                    if(result)
+                    console.log(result)
+                })
             }
             var transaction;
             if (object[i].operations[0][0] === "transfer" && object[i].operations[0][1].to === "ongame") {
