@@ -10,13 +10,13 @@ var battle = require('./operations/battle_handler')
 var shop = require('./operations/shop_handler')
 var market = require('./operations/market_handler')
 var ongame = require('./operations/ongame_handler')
+var fundition = require('./operations/fundition_handler')
 var client = new Client('https://api.steemit.com')
 
 app.listen(port, () => console.log(`Listening on ${port}`));
 
 function WriteDonation(block, name, op, memo) {
-    if(op.amount)
-    {
+    if (op.amount) {
         if (op.amount.split(' ')[1] === 'STEEM') {
             var xtr = new XMLHttpRequest();
             xtr.open('GET', 'https://api.coinmarketcap.com/v1/ticker/steem/', true);
@@ -29,7 +29,7 @@ function WriteDonation(block, name, op, memo) {
                                 var ticker = JSON.parse(xtr.responseText)
                             }
                             catch (e) {
-    
+
                             }
                             totalUSD = ticker[0].price_usd
                             console.log('Donator= ' + name + ' Amount= ' + totalUSD)
@@ -68,7 +68,7 @@ function WriteDonation(block, name, op, memo) {
                                 var ticker = JSON.parse(xtr.responseText)
                             }
                             catch (e) {
-    
+
                             }
                             totalUSD = ticker[0].price_usd
                             console.log('Donator= ' + name + ' Amount= ' + totalUSD)
@@ -96,7 +96,7 @@ function WriteDonation(block, name, op, memo) {
             }
         }
     }
-   
+
 }
 
 var stream = client.blockchain.getBlockStream({ mode: BlockchainMode.Latest })
@@ -110,6 +110,17 @@ stream.on("data", function (block) {
             console.log(error)
         }
         for (i = 0; i < object.length; i++) {
+            if (object[i].operations[0][0] === 'vote' && object[i].operations[0][1].voter === 'fundition') {
+                try {
+                    var json = object[i].operations[0][1]
+                    fundition.upvoteComment(json,function(result){
+                        if(result)
+                        console.log(result)
+                    })
+                } catch (error) {
+                    console.log(error)
+                }
+            }
             var transaction;
             if (object[i].operations[0][0] === "transfer" && object[i].operations[0][1].to === "ongame") {
                 player.checkForPlayer(object[i].operations[0][1].from, function (exist) {
@@ -121,35 +132,6 @@ stream.on("data", function (block) {
                     }
                 })
             }
-            // if (object[i].operations[0][0] === "custom_json" && object[i].operations[0][1].id === "dw-fight") {
-            //     try {
-            //         var fight = JSON.parse(object[i].operations[0][1].json)
-            //         battle.checkForABattle(fight.user_id, function (error) {
-            //             if (error) {
-            //                 console.log(error)
-            //             }
-            //         })
-
-            //     } catch (error) {
-            //         console.log(error)
-            //     }
-            // }
-            // if (object[i].operations[0][0] === "custom_json" && object[i].operations[0][1].id === "dw-char") {
-            //     try {
-            //         var json = JSON.parse(object[i].operations[0][1].json)
-            //         player.checkForPlayer(json.username, function (exist) {
-            //             if (!exist) {
-            //                 player.createNewPlayer(json.username, json.icon, function (error) {
-            //                     if (error) {
-            //                         console.log("couldnt create charachter")
-            //                     }
-            //                 })
-            //             }
-            //         })
-            //     } catch (error) {
-            //         console.log(error)
-            //     }
-            // }
             if (object[i].operations[0][1].id) {
                 if (object[i].operations[0][0] === "custom_json" && object[i].operations[0][1].id === "fundition") {
                     try {
@@ -265,8 +247,6 @@ stream.on("data", function (block) {
                         }
                     }
                 }
-
-
             }
             if (object[i].operations[0][0] === "transfer") {
                 var op = object[i].operations[0][1]
@@ -289,7 +269,7 @@ stream.on("data", function (block) {
                             WriteDonation(block, name, op, memo)
                         }
                     }
-                   
+
                 }
             }
         }
