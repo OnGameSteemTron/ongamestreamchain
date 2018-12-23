@@ -1,5 +1,5 @@
 var steem = require('steem');
-
+steem.api.setOptions({ url: 'https://api.steemit.com' });
 var jsonMetadata = [{ app: 'fundition' }]
 
 var updatevotemessage = `**This project is being supported by @Fundition**
