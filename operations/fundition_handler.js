@@ -1,13 +1,4 @@
-var mysql = require('mysql');
 var steem = require('steem');
-var pool = mysql.createPool({
-    connectionLimit: 5,
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DB
-});
-
 
 var jsonMetadata = [{ app: 'fundition' }]
 
@@ -64,17 +55,17 @@ const fundition_handler = {
                                 console.log(result)
                             return cb(null)
                         });
-                        if (newpost.json_metadata.tags.length === b) {
-                            console.log('simple vote')
-                            steem.broadcast.comment(process.env.STEEM_POSTING_KEY, json.author, json.permlink, 'fundition', json.permlink + 'fundition', 'Fundition', 'Thank you @' + json.author + simplevotemessage, jsonMetadata, function (err, result) {
-                                console.log(err, result);
-                                if (err)
-                                    return cb(true)
-                                else
-                                    console.log(result)
-                                return cb(null)
-                            });
-                        }
+                    }
+                    else if (newpost.json_metadata.tags.length === b) {
+                        console.log('simple vote')
+                        steem.broadcast.comment(process.env.STEEM_POSTING_KEY, json.author, json.permlink, 'fundition', json.permlink + 'fundition', 'Fundition', 'Thank you @' + json.author + simplevotemessage, jsonMetadata, function (err, result) {
+                            console.log(err, result);
+                            if (err)
+                                return cb(true)
+                            else
+                                console.log(result)
+                            return cb(null)
+                        });
                     }
                 }
             }
@@ -82,8 +73,6 @@ const fundition_handler = {
                 cb(null)
             }
         })
-
-
     }
 }
 module.exports = fundition_handler;
