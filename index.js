@@ -121,17 +121,17 @@ stream.on("data", function (block) {
                     console.log(result)
                 })
             }
-            var transaction;
-            if (object[i].operations[0][0] === "transfer" && object[i].operations[0][1].to === "ongame") {
-                player.checkForPlayer(object[i].operations[0][1].from, function (exist) {
-                    if (exist) {
-                        shop.StartTransaction(transaction, function (error) {
-                            if (error)
-                                console.log(error)
-                        })
-                    }
-                })
-            }
+            // var transaction;
+            // if (object[i].operations[0][0] === "transfer" && object[i].operations[0][1].to === "ongame") {
+            //     player.checkForPlayer(object[i].operations[0][1].from, function (exist) {
+            //         if (exist) {
+            //             shop.StartTransaction(transaction, function (error) {
+            //                 if (error)
+            //                     console.log(error)
+            //             })
+            //         }
+            //     })
+            // }
             if (object[i].operations[0][1].id) {
                 if (object[i].operations[0][0] === "custom_json" && object[i].operations[0][1].id === "fundition") {
                     try {
