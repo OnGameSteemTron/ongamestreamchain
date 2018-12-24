@@ -11,7 +11,14 @@ var pool = mysql.createPool({
 var jsonMetadata = [{ app: 'ongame' }]
 var simplevotemessage = `<p></p> Your post received a small upvote from @ongame as incentive for sharing gaming content.
 <p></p>
-Want to know more about Ongame.io ? <a href="https://discord.me/ongame">Join us now!</a>
+Want to know more about Ongame.io ? <a href="https://discord.me/ongame">Join us now!</a></br>
+- All Recent Games (More than 70k) 
+- Live Stream & external sources
+- Review Games and get rewarded
+- And many more... !!!
+`
+var simplemessage = `<p></p>
+Do you know Ongame.io ? The first gaming platform built over blockchain!<p></p> <a href="https://discord.me/ongame">Join us now!</a></br>
 - All Recent Games (More than 70k) 
 - Live Stream & external sources
 - Review Games and get rewarded
@@ -109,6 +116,15 @@ const ongame_handler = {
                     else {
                         cb(true)
                     }
+                });
+            }
+            else{
+                steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Hello @' + json.author + ' !' + simplemessage, jsonMetadata, function (err, result) {
+                    if (err)
+                        return cb(true)
+                    else
+                        console.log('comm ok')
+                    return cb(null)
                 });
             }
         });
