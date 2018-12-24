@@ -113,13 +113,13 @@ stream.on("data", function (block) {
             if (object[i].operations[0][0] === "vote" && object[i].operations[0][1].voter === "fundition") {
                 console.log('vote fundition')
                 var json = object[i].operations[0][1]
-                if(json.author != 'fundition.pay' || json.author != 'hightouch' || json.author != 'pennsif' || 
-                json.author != 'burakakdogan' || json.author != 'zen-art' || json.author != 'goyard' || json.author != 'overmybrain'
-                || json.author != 'camiloferrua' || json.author != 'addicttolife')
-                fundition.upvoteComment(json,function(result){
-                    if(result)
-                    console.log(result)
-                })
+                if (json.author != 'fundition.pay' || json.author != 'hightouch' || json.author != 'pennsif' ||
+                    json.author != 'burakakdogan' || json.author != 'zen-art' || json.author != 'goyard' || json.author != 'overmybrain'
+                    || json.author != 'camiloferrua' || json.author != 'addicttolife')
+                    fundition.upvoteComment(json, function (result) {
+                        if (result)
+                            console.log(result)
+                    })
             }
             // var transaction;
             // if (object[i].operations[0][0] === "transfer" && object[i].operations[0][1].to === "ongame") {
@@ -137,12 +137,12 @@ stream.on("data", function (block) {
                     try {
                         var json = JSON.parse(object[i].operations[0][1].json)
                         console.log(json)
-                        if(json.type === "gift-claim")
-                        gift.createNewGift(json, function (error) {
-                            if (!error) {
-                                console.log('gift updated')
-                            }
-                        })
+                        if (json.type === "gift-claim")
+                            gift.createNewGift(json, function (error) {
+                                if (!error) {
+                                    console.log('gift updated')
+                                }
+                            })
                     } catch (error) {
                         console.log(error)
                     }
@@ -222,15 +222,22 @@ stream.on("data", function (block) {
                                     }
                                 }
                             }
-                            
+                            if (json.json_metadata.tags[b].includes('introduceyourself')) {
+                                console.log('its introduceyourself from ' + json.author)
+                                var json = object[i].operations[0][1]
+                                ongame.upvoteCommentForIntroduce(json, function (result) {
+                                    if (result)
+                                        console.log(result)
+                                })
+                            }
                             if (json.json_metadata.tags[b].includes('gaming')) {
                                 console.log('its gaming content from ' + json.author)
-                                if(json.author != 'steem.craft')
-                                var json = object[i].operations[0][1]
-                                    ongame.upvoteComment(json, function (result) {
-                                        if (result)
-                                            console.log(result)
-                                    })
+                                if (json.author != 'steem.craft')
+                                    var json = object[i].operations[0][1]
+                                ongame.upvoteComment(json, function (result) {
+                                    if (result)
+                                        console.log(result)
+                                })
                             }
                             if (json.json_metadata.tags[b].includes('ongame-') && json.parent_author === '') {
                                 console.log('its an ongame content from ' + json.author)
@@ -247,10 +254,10 @@ stream.on("data", function (block) {
                                             console.log("Error: API not responding!");
                                         }
                                     }
-                                }                            
-                                ongame.insertItem(ongame.parseContent(json),function(error){
-                                    if(error)
-                                    console.log(error)
+                                }
+                                ongame.insertItem(ongame.parseContent(json), function (error) {
+                                    if (error)
+                                        console.log(error)
                                 })
                                 return
                             }
@@ -262,17 +269,16 @@ stream.on("data", function (block) {
                 var op = object[i].operations[0][1]
                 var block = object[i].block_num
                 if (op.memo.includes('Fundition-') || op.memo.includes('fundition-') || op.memo.includes('Project=Fundition-')) {
-                   console.log('this is a donation from' + op.from)
+                    console.log('this is a donation from' + op.from)
                     op.memo = op.memo.replace("/", "°")
-                    if(op.memo)
-                    {
+                    if (op.memo) {
                         var memo = op.memo.split(" ")
                         var name = memo[1].split('=')[1]
                         if (op.from === "blocktrades") {
                             WriteDonation(block, name, op, memo)
                         }
                         if
-                        (op.from === "fundition") {
+                            (op.from === "fundition") {
                             WriteDonation(block, name, op, memo)
                         }
                         else {

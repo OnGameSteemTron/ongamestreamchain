@@ -127,8 +127,56 @@ const ongame_handler = {
                     return cb(null)
                 });
             }
-        });
-
+        })
+    },
+    upvoteCommentForIntroduce: function (json, cb) {
+        steem.api.getContent(json.author, json.permlink, function (error, result) {
+            if (result) {
+                if(result.body.includes('gaming'))
+                steem.api.getAccounts(['ongame'], function (err, result) {
+                    if (result)
+                    var account = result[0]
+                    const totalShares = parseFloat(account.vesting_shares) + parseFloat(account.received_vesting_shares) - parseFloat(account.delegated_vesting_shares) - parseFloat(account.vesting_withdraw_rate);
+        
+                    const elapsed = Math.floor(Date.now() / 1000) - account.voting_manabar.last_update_time;
+                    const maxMana = totalShares * 1000000;
+                    // 432000 sec = 5 days
+                    let currentMana = parseFloat(account.voting_manabar.current_mana) + elapsed * maxMana / 432000;
+        
+                    if (currentMana > maxMana) {
+                        currentMana = maxMana;
+                    }
+        
+                    const currentManaPerc = currentMana * 100 / maxMana;
+                    if(currentManaPerc>90)
+                    {
+                        steem.broadcast.vote(process.env.ONGAME_STEEM_POSTING_KEY, 'ongame', json.author, json.permlink, 2500, function (err, result) {
+                            if (result) {
+                                steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Congratulations @' + json.author + ' !' + simplevotemessage, jsonMetadata, function (err, result) {
+                                    if (err)
+                                        return cb(true)
+                                    else
+                                        console.log('upvte+comm ok')
+                                    return cb(null)
+                                });
+                            }
+                            else {
+                                cb(true)
+                            }
+                        });
+                    }
+                    else{
+                        steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Hello @' + json.author + ' !' + simplemessage, jsonMetadata, function (err, result) {
+                            if (err)
+                                return cb(true)
+                            else
+                                console.log('comm ok')
+                            return cb(null)
+                        });
+                    }
+                })
+            }
+        })
     }
 }
 module.exports = ongame_handler;
