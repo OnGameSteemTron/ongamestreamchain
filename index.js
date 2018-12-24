@@ -113,6 +113,9 @@ stream.on("data", function (block) {
             if (object[i].operations[0][0] === "vote" && object[i].operations[0][1].voter === "fundition") {
                 console.log('vote fundition')
                 var json = object[i].operations[0][1]
+                if(json.author != 'fundition.pay' || json.author != 'hightouch' || json.author != 'pennsif' || 
+                json.author != 'burakakdogan' || json.author != 'zen-art' || json.author != 'goyard' || json.author != 'overmybrain'
+                || json.author != 'camiloferrua' || json.author != 'addicttolife')
                 fundition.upvoteComment(json,function(result){
                     if(result)
                     console.log(result)
