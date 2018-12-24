@@ -79,7 +79,7 @@ const ongame_handler = {
         return content;
     },
     upvoteComment: function (json, cb) {
-        steem.broadcast.vote(process.env.ONGAME_STEEM_POSTING_KEY, 'ongame', json.author, json.permlink, 1000, function(err, result) {
+        steem.broadcast.vote(process.env.ONGAME_STEEM_POSTING_KEY, 'ongame', json.author, json.permlink, 3000, function(err, result) {
             if(result){
                 steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Congratulations @' + json.author +' !' + simplevotemessage, jsonMetadata, function (err, result) {
                     if (err)
