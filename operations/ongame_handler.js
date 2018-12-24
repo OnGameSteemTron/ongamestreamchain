@@ -9,7 +9,7 @@ var pool = mysql.createPool({
     database: process.env.MYSQL_DB
 });
 var jsonMetadata = [{ app: 'ongame' }]
-var simplevotemessage = `Your post received a small upvote from @ongame as incentive for sharing gaming content.
+var simplevotemessage = `<p></p> Your post received a small upvote from @ongame as incentive for sharing gaming content.
 <p></p>
 Want to know more about Ongame.io ? <a href="https://ongame.io">Join us now!</a>
 - All Recent Games (More than 70k) 
@@ -81,7 +81,7 @@ const ongame_handler = {
     upvoteComment: function (json, cb) {
         steem.broadcast.vote(process.env.ONGAME_STEEM_POSTING_KEY, 'ongame', json.author, json.permlink, 1000, function(err, result) {
             if(result){
-                steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Congratulations @' + json.author +' ' + simplevotemessage, jsonMetadata, function (err, result) {
+                steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Congratulations @' + json.author +'!' + simplevotemessage, jsonMetadata, function (err, result) {
                     if (err)
                         return cb(true)
                     else
