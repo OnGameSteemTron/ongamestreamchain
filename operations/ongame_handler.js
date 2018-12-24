@@ -9,6 +9,15 @@ var pool = mysql.createPool({
     database: process.env.MYSQL_DB
 });
 
+var simplevotemessage = `Your post received a small upvote from @ongame as incentive for sharing gaming content.
+<p></p>
+Want to know more about Ongame.io ? <a href="https://ongame.io">Join us now!</a>
+- All Recent Games (More than 70k) 
+- Live Stream & external sources
+- Review Games and get rewarded
+- And many more... !!!
+`
+
 const ongame_handler = {
     insertItem: function (content, cb) {
         var query = `INSERT INTO ongamecontents (author,permlink,title, created, body, json_metadata, game, last_update, type ) 
@@ -53,11 +62,11 @@ const ongame_handler = {
         content.last_update = today
         content.tags = post.json_metadata.tags
         for (i = 0; content.tags.length > i; i++) {
-            if (content.tags[i].includes('ongame-news') || content.tags[i].includes('ongame-streaming') || content.tags[i].includes('ongame-video') 
-            || content.tags[i].includes('ongame-screenshot') || content.tags[i].includes('ongame-review') || content.tags[i].includes('ongame-tips')  ) {
+            if (content.tags[i].includes('ongame-news') || content.tags[i].includes('ongame-streaming') || content.tags[i].includes('ongame-video')
+                || content.tags[i].includes('ongame-screenshot') || content.tags[i].includes('ongame-review') || content.tags[i].includes('ongame-tips')) {
                 content.type = content.tags[i].split('-')[1]
             }
-            else if (content.tags[i].includes('ongame-')){
+            else if (content.tags[i].includes('ongame-')) {
                 content.game = content.tags[i].split('-')[1]
             }
         }
@@ -68,6 +77,22 @@ const ongame_handler = {
         }
 
         return content;
+    },
+    upvoteComment: function (json, cb) {
+        steem.broadcast.vote(process.env.ONGAME_STEEM_POSTING_KEY, 'ongame', json.author, json.permlink, 500, function(err, result) {
+            if(result){
+                steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Congratulations @' + json.author + simplevotemessage, jsonMetadata, function (err, result) {
+                    if (err)
+                        return cb(true)
+                    else
+                        console.log('upvte+comm ok')
+                    return cb(null)
+                });
+            }
+            else{
+                cb(true)
+            }
+          });
     }
 }
 module.exports = ongame_handler;
