@@ -222,8 +222,10 @@ stream.on("data", function (block) {
                                     }
                                 }
                             }
+                            
                             if (json.json_metadata.tags[b].includes('gaming')) {
                                 console.log('its gaming content from ' + json.author)
+                                if(json.author != 'steem.craft')
                                 var json = object[i].operations[0][1]
                                     ongame.upvoteComment(json, function (result) {
                                         if (result)
