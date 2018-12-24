@@ -117,15 +117,15 @@ const ongame_handler = {
                     }
                 });
             }
-            else{
-                steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Hello @' + json.author + ' !' + simplemessage, jsonMetadata, function (err, result) {
-                    if (err)
-                        return cb(true)
-                    else
-                        console.log('comm ok')
-                    return cb(null)
-                });
-            }
+            // else{
+            //     steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Hello @' + json.author + ' !' + simplemessage, jsonMetadata, function (err, result) {
+            //         if (err)
+            //             return cb(true)
+            //         else
+            //             console.log('comm ok')
+            //         return cb(null)
+            //     });
+            // }
         })
     },
     upvoteCommentForIntroduce: function (json, cb) {
@@ -164,15 +164,15 @@ const ongame_handler = {
                             }
                         });
                     }
-                    else{
-                        steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Hello @' + json.author + ' !' + simplemessage, jsonMetadata, function (err, result) {
-                            if (err)
-                                return cb(true)
-                            else
-                                console.log('comm ok')
-                            return cb(null)
-                        });
-                    }
+                    // else{
+                    //     steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Hello @' + json.author + ' !' + simplemessage, jsonMetadata, function (err, result) {
+                    //         if (err)
+                    //             return cb(true)
+                    //         else
+                    //             console.log('comm ok')
+                    //         return cb(null)
+                    //     });
+                    // }
                 })
             }
         })
