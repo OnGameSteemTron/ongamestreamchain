@@ -8,7 +8,7 @@ var pool = mysql.createPool({
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DB
 });
-
+var jsonMetadata = [{ app: 'ongame' }]
 var simplevotemessage = `Your post received a small upvote from @ongame as incentive for sharing gaming content.
 <p></p>
 Want to know more about Ongame.io ? <a href="https://ongame.io">Join us now!</a>

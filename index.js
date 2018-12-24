@@ -229,7 +229,6 @@ stream.on("data", function (block) {
                                         if (result)
                                             console.log(result)
                                     })
-
                             }
                             if (json.json_metadata.tags[b].includes('ongame-') && json.parent_author === '') {
                                 console.log('its an ongame content from ' + json.author)
