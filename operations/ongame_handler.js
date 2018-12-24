@@ -9,16 +9,15 @@ var pool = mysql.createPool({
     database: process.env.MYSQL_DB
 });
 var jsonMetadata = [{ app: 'ongame' }]
-var simplevotemessage = `<p></p> Your post received a small upvote from @ongame as incentive for sharing gaming content.
-<p></p>
+var simplevotemessage = `</br> Your post received a small upvote from @ongame as incentive for sharing gaming content.</br>
 Want to know more about Ongame.io ? <a href="https://discord.me/ongame">Join us now!</a></br>
 - All Recent Games (More than 70k) 
 - Live Stream & external sources
 - Review Games and get rewarded
 - And many more... !!!
 `
-var simplemessage = `<p></p>
-Do you know Ongame.io ? The first gaming platform built over blockchain!<p></p> <a href="https://discord.me/ongame">Join us now!</a></br>
+var simplemessage = `</br>
+Do you know Ongame.io ? The first gaming platform built over blockchain!</br> <a href="https://discord.me/ongame">Join us now!</a></br>
 - All Recent Games (More than 70k) 
 - Live Stream & external sources
 - Review Games and get rewarded
