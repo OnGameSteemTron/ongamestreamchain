@@ -79,20 +79,40 @@ const ongame_handler = {
         return content;
     },
     upvoteComment: function (json, cb) {
-        steem.broadcast.vote(process.env.ONGAME_STEEM_POSTING_KEY, 'ongame', json.author, json.permlink, 3000, function(err, result) {
-            if(result){
-                steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Congratulations @' + json.author +' !' + simplevotemessage, jsonMetadata, function (err, result) {
-                    if (err)
-                        return cb(true)
-                    else
-                        console.log('upvte+comm ok')
-                    return cb(null)
+        steem.api.getAccounts(['ongame'], function (err, result) {
+            if (result)
+            var account = result[0]
+            const totalShares = parseFloat(account.vesting_shares) + parseFloat(account.received_vesting_shares) - parseFloat(account.delegated_vesting_shares) - parseFloat(account.vesting_withdraw_rate);
+
+            const elapsed = Math.floor(Date.now() / 1000) - account.voting_manabar.last_update_time;
+            const maxMana = totalShares * 1000000;
+            // 432000 sec = 5 days
+            let currentMana = parseFloat(account.voting_manabar.current_mana) + elapsed * maxMana / 432000;
+
+            if (currentMana > maxMana) {
+                currentMana = maxMana;
+            }
+
+            const currentManaPerc = currentMana * 100 / maxMana;
+            if(currentManaPerc>90)
+            {
+                steem.broadcast.vote(process.env.ONGAME_STEEM_POSTING_KEY, 'ongame', json.author, json.permlink, 5000, function (err, result) {
+                    if (result) {
+                        steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Congratulations @' + json.author + ' !' + simplevotemessage, jsonMetadata, function (err, result) {
+                            if (err)
+                                return cb(true)
+                            else
+                                console.log('upvte+comm ok')
+                            return cb(null)
+                        });
+                    }
+                    else {
+                        cb(true)
+                    }
                 });
             }
-            else{
-                cb(true)
-            }
-          });
+        });
+
     }
 }
 module.exports = ongame_handler;
