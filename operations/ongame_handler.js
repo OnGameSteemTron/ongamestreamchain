@@ -102,7 +102,7 @@ const ongame_handler = {
             const currentManaPerc = currentMana * 100 / maxMana;
             if(currentManaPerc>90)
             {
-                steem.broadcast.vote(process.env.ONGAME_STEEM_POSTING_KEY, 'ongame', json.author, json.permlink, 2500, function (err, result) {
+                steem.broadcast.vote(process.env.ONGAME_STEEM_POSTING_KEY, 'ongame', json.author, json.permlink, 2300, function (err, result) {
                     if (result) {
                         steem.broadcast.comment(process.env.ONGAME_STEEM_POSTING_KEY, json.author, json.permlink, 'ongame', json.permlink + 'ongame', 'ongame', 'Congratulations @' + json.author + ' !' + simplevotemessage, jsonMetadata, function (err, result) {
                             if (err)
