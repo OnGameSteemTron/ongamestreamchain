@@ -268,8 +268,8 @@ stream.on("data", function (block) {
             if (object[i].operations[0][0] === "transfer") {
                 var op = object[i].operations[0][1]
                 var block = object[i].block_num
-                if (op.memo.includes('Fundition-') || op.memo.includes('fundition-') || op.memo.includes('Project=Fundition-')) {
-                    console.log('this is a donation from' + op.from)
+                if (op.memo.includes('Fundition-') || op.memo.includes('fundition-') || op.memo.includes('Project=Fundition-') && op.to != 'smartmarket') {
+                    console.log('this is a donation from ' + op.from)
                     op.memo = op.memo.replace("/", "°")
                     if (op.memo) {
                         var memo = op.memo.split(" ")
