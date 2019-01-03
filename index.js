@@ -273,7 +273,11 @@ stream.on("data", function (block) {
                     op.memo = op.memo.replace("/", "°")
                     if (op.memo) {
                         var memo = op.memo.split(" ")
+                        if(memo[1].split('=')[1])
                         var name = memo[1].split('=')[1]
+                        else{
+                            var name = 'anonymous'
+                        }
                         if (op.from === "blocktrades") {
                             WriteDonation(block, name, op, memo)
                         }
