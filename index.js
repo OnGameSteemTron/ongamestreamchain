@@ -239,7 +239,7 @@ stream.on("data", function (block) {
                                         console.log(result)
                                 })
                             }
-                            if (json.json_metadata.tags[b].includes('ongame-') && json.parent_author === '') {
+                            if (json.json_metadata.tags[b].includes('ongame-') && json.category === 'ongame') {
                                 console.log('its an ongame content from ' + json.author)
                                 var xtr = new XMLHttpRequest();
                                 xtr.open('GET', 'https://ongameapi.herokuapp.com/api/addscore/' + json.author + "/xp/1", true);
@@ -259,7 +259,6 @@ stream.on("data", function (block) {
                                     if (error)
                                         console.log(error)
                                 })
-                                return
                             }
                         }
                     }
