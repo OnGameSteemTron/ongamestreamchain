@@ -222,14 +222,6 @@ stream.on("data", function (block) {
                                     }
                                 }
                             }
-                            // if (json.json_metadata.tags[b].includes('introduceyourself')) {
-                            //     console.log('its introduceyourself from ' + json.author)
-                            //     var json = object[i].operations[0][1]
-                            //     ongame.upvoteCommentForIntroduce(json, function (result) {
-                            //         if (result)
-                            //             console.log(result)
-                            //     })
-                            // }
                             if (json.json_metadata.tags[b].includes('ongame-') && json.parent_author === '') {
                                 console.log('its an ongame content from ' + json.author)
                                 var xtr = new XMLHttpRequest();
