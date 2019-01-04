@@ -256,6 +256,7 @@ stream.on("data", function (block) {
                                             })
                                         }
                                 })
+                                return
                             }
                             // if (json.json_metadata.tags[b].includes('gaming')) {
                             //     console.log('its gaming content from ' + json.author + json.created)
