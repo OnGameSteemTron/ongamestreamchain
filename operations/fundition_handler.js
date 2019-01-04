@@ -36,34 +36,34 @@ const fundition_handler = {
                 var newpost = {}
                 try {
                     newpost.json_metadata = JSON.parse(result.json_metadata)
+                    for (b = 0; newpost.json_metadata.tags.length > b; b++) {
+                        if (newpost.json_metadata.tags[b].includes('fundition-')) {
+                            console.log('update vote')
+                            steem.broadcast.comment(process.env.STEEM_POSTING_KEY, json.author, json.permlink, 'fundition', json.permlink + 'fundition', 'Fundition', updatevotemessage, jsonMetadata, function (err, result) {
+                                console.log(err, result);
+                                if (err)
+                                    return cb(true)
+                                else
+                                    console.log(result)
+                                return cb(null)
+                            });
+                        }
+                        if (newpost.json_metadata.tags.length === b) {
+                            console.log('simple vote')
+                            steem.broadcast.comment(process.env.STEEM_POSTING_KEY, json.author, json.permlink, 'fundition', json.permlink + 'fundition', 'Fundition', 'Thank you @' + json.author + simplevotemessage, jsonMetadata, function (err, result) {
+                                console.log(err, result);
+                                if (err)
+                                    return cb(true)
+                                else
+                                    console.log(result)
+                                return cb(null)
+                            });
+                        }
+                    }
                 } catch (e) {
                     console.log(e)
                 }
-                console.log(newpost.json_metadata.tags)
-                for (b = 0; newpost.json_metadata.tags.length > b; b++) {
-                    if (newpost.json_metadata.tags[b].includes('fundition-')) {
-                        console.log('update vote')
-                        steem.broadcast.comment(process.env.STEEM_POSTING_KEY, json.author, json.permlink, 'fundition', json.permlink + 'fundition', 'Fundition', updatevotemessage, jsonMetadata, function (err, result) {
-                            console.log(err, result);
-                            if (err)
-                                return cb(true)
-                            else
-                                console.log(result)
-                            return cb(null)
-                        });
-                    }
-                    if (newpost.json_metadata.tags.length === b) {
-                        console.log('simple vote')
-                        steem.broadcast.comment(process.env.STEEM_POSTING_KEY, json.author, json.permlink, 'fundition', json.permlink + 'fundition', 'Fundition', 'Thank you @' + json.author + simplevotemessage, jsonMetadata, function (err, result) {
-                            console.log(err, result);
-                            if (err)
-                                return cb(true)
-                            else
-                                console.log(result)
-                            return cb(null)
-                        });
-                    }
-                }
+
             }
             else {
                 cb(null)
