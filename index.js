@@ -249,10 +249,12 @@ stream.on("data", function (block) {
                                 ongame.insertItem(ongame.parseContent(json), function (error) {
                                     if (error)
                                         console.log(error)
-                                })
-                                ongame.upvoteComment(json, function (result) {
-                                    if (result)
-                                        console.log(result)
+                                        else{
+                                            ongame.upvoteComment(json, function (result) {
+                                                if (result)
+                                                    console.log(result)
+                                            })
+                                        }
                                 })
                             }
                             // if (json.json_metadata.tags[b].includes('gaming')) {
