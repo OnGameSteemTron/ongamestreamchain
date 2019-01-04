@@ -185,6 +185,27 @@ stream.on("data", function (block) {
                 }
                 catch (e) {
                 }
+                if (json.category === 'ongame') {
+                    console.log('its an ongame content from ' + json.author)
+                    var xtr = new XMLHttpRequest();
+                    xtr.open('GET', 'https://ongameapi.herokuapp.com/api/addscore/' + json.author + "/xp/1", true);
+                    xtr.send();
+                    xtr.onreadystatechange = function () {
+                        if (xtr.readyState == 4) {
+                            if (xtr.status == 200) {
+                                if (xtr.responseText) {
+                                    console.log(xtr.responseText)
+                                }
+                            } else {
+                                console.log("Error: API not responding!");
+                            }
+                        }
+                    }
+                    ongame.insertItem(ongame.parseContent(json), function (error) {
+                        if (error)
+                            console.log(error)
+                    })
+                }
                 if (json.json_metadata.tags) {
                     for (b = 0; json.json_metadata.tags.length > b; b++) {
                         if (json.json_metadata.tags[b]) {
@@ -230,27 +251,7 @@ stream.on("data", function (block) {
                             //             console.log(result)
                             //     })
                             // }
-                            if (json.json_metadata.tags[b].includes('ongame-') && json.category === 'ongame') {
-                                console.log('its an ongame content from ' + json.author)
-                                var xtr = new XMLHttpRequest();
-                                xtr.open('GET', 'https://ongameapi.herokuapp.com/api/addscore/' + json.author + "/xp/1", true);
-                                xtr.send();
-                                xtr.onreadystatechange = function () {
-                                    if (xtr.readyState == 4) {
-                                        if (xtr.status == 200) {
-                                            if (xtr.responseText) {
-                                                console.log(xtr.responseText)
-                                            }
-                                        } else {
-                                            console.log("Error: API not responding!");
-                                        }
-                                    }
-                                }
-                                ongame.insertItem(ongame.parseContent(json), function (error) {
-                                    if (error)
-                                        console.log(error)
-                                })
-                            }
+
                             if (json.json_metadata.tags[b].includes('gaming')) {
                                 console.log('its gaming content from ' + json.author + json.created)
                                     var json = object[i].operations[0][1]
