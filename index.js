@@ -230,15 +230,6 @@ stream.on("data", function (block) {
                             //             console.log(result)
                             //     })
                             // }
-                            if (json.json_metadata.tags[b].includes('gaming')) {
-                                console.log('its gaming content from ' + json.author + json.created)
-                                    var json = object[i].operations[0][1]
-                                    if (json.author != 'steem.craft' && json.author != 'steemslotgames' && json.created === json.last_update)
-                                ongame.upvoteComment(json, function (result) {
-                                    if (result)
-                                        console.log(result)
-                                })
-                            }
                             if (json.json_metadata.tags[b].includes('ongame-') && json.category === 'ongame') {
                                 console.log('its an ongame content from ' + json.author)
                                 var xtr = new XMLHttpRequest();
@@ -260,6 +251,16 @@ stream.on("data", function (block) {
                                         console.log(error)
                                 })
                             }
+                            if (json.json_metadata.tags[b].includes('gaming')) {
+                                console.log('its gaming content from ' + json.author + json.created)
+                                    var json = object[i].operations[0][1]
+                                    if (json.author != 'steem.craft' && json.author != 'steemslotgames' && json.created === json.last_update)
+                                ongame.upvoteComment(json, function (result) {
+                                    if (result)
+                                        console.log(result)
+                                })
+                            }
+                            
                         }
                     }
                 }
